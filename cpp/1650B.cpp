@@ -30,29 +30,13 @@ int main()
 {
     w(t)
     {
-        int l, r, a;
-        cin >> l >> r >> a;
-        int sum = 0;
-        if (a == 1 || r < a)
-        {
-            sum = r;
-        }
-        else if (r % a == 0 && r >= a)
-        {
-            sum = (r - 1) / a + (r - 1) % a;
-        }
-        else if (r % a != 0 && r > a)
-        {
-            if ((r % a) < ((((r / a) * a) - 1) % a) && (((r / a) * a) - 1) >= l)
-            {
-                sum = (((r / a) * a) - 1) % a + (((r / a) * a) - 1) / a;
-            }
-            else
-            {
-                sum = (r / a) + r % a;
-            }
-        }
-        pe(sum);
+        int l, r, x;
+        cin >> l >> r >> x;
+        int ans = r / x + r % x;
+        int m = r / x * x - 1;
+        if (m >= l)
+            ans = max(ans, m / x + m % x);
+        pe(ans);
     }
     return 0;
 }

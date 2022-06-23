@@ -33,41 +33,40 @@ using namespace std;
 #define ce cout << endl;
 #define setbits(x) __builtin_popcount(x)
 
+int dp[2506];
+
+int Lis(vector<int> &v, int i)
+{
+    int ans = 1;
+    if (dp[i] != -1)
+        return dp[i];
+    for (int j = 0; j < i; j++)
+        if (v[i] > v[j])
+            ans = max(ans, 1 + Lis(v, j));
+    return dp[i] = ans;
+}
+
+int lengthOfLIS(vector<int> &nums)
+{
+    memset(dp, -1, sizeof(dp));
+    int n = nums.size();
+    int ans = 0;
+    for (int i = 0; i < n; i++)
+    {
+        ans = max(ans, Lis(nums, i));
+    }
+    return ans;
+}
+
 int main()
 {
-    w(t)
-    {
-        int n;
-        cin >> n;
-        string str1, str2;
-        cin >> str1 >> str2;
+    int n;
+    cin >> n;
+    vi nums(n);
 
-        bool flag = true;
-        if (count(str1.begin(), str1.end(), 'b') != count(str2.begin(), str2.end(), 'b'))
-            flag = false;
-        int j = 0;
-        for (int i = 0; i < n; i++)
-        {
-            if (str1[i] == 'b')
-                continue;
-            while (str2[j] == 'b')
-                j++;
+    for (int i = 0; i < n; i++)
+        cin >> nums[i];
 
-            if (str1[i] != str2[j] || str1[i] == 'a' && i > j || str1[i] == 'c' && i < j)
-            {
-                flag = false;
-                break;
-            }
-            j++;
-        }
-        if (flag)
-        {
-            pe("YES");
-        }
-        else
-        {
-            pe("NO");
-        }
-    }
+    pe(lengthOfLIS(nums));
     return 0;
 }

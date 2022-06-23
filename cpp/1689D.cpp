@@ -37,37 +37,33 @@ int main()
 {
     w(t)
     {
-        int n;
-        cin >> n;
-        string str1, str2;
-        cin >> str1 >> str2;
+        int n, m;
+        cin >> n >> m;
+        char a[n][m];
+        vi X, Y;
 
-        bool flag = true;
-        if (count(str1.begin(), str1.end(), 'b') != count(str2.begin(), str2.end(), 'b'))
-            flag = false;
-        int j = 0;
         for (int i = 0; i < n; i++)
-        {
-            if (str1[i] == 'b')
-                continue;
-            while (str2[j] == 'b')
-                j++;
-
-            if (str1[i] != str2[j] || str1[i] == 'a' && i > j || str1[i] == 'c' && i < j)
+            for (int j = 0; j < m; j++)
             {
-                flag = false;
-                break;
+                cin >> a[i][j];
+                if (a[i][j] == 'B')
+                {
+                    X.pb(i);
+                    Y.pb(j);
+                }
             }
-            j++;
-        }
-        if (flag)
-        {
-            pe("YES");
-        }
-        else
-        {
-            pe("NO");
-        }
+
+        sort(X.begin(), X.end());
+        sort(Y.begin(), Y.end());
+
+        int x, y;
+        if ((X.front() + X.back()) % 2 == 0)
+            (X.front() + X.back()) / 2;
+        if ((Y.front() + Y.back()) % 2 == 0)
+            (Y.front() + Y.back()) / 2;
+
+        p(x + 1);
+        pe(y + 1);
     }
     return 0;
 }

@@ -39,34 +39,20 @@ int main()
     {
         int n;
         cin >> n;
-        string str1, str2;
-        cin >> str1 >> str2;
+        string s;
+        cin >> s;
 
-        bool flag = true;
-        if (count(str1.begin(), str1.end(), 'b') != count(str2.begin(), str2.end(), 'b'))
-            flag = false;
-        int j = 0;
-        for (int i = 0; i < n; i++)
-        {
-            if (str1[i] == 'b')
-                continue;
-            while (str2[j] == 'b')
-                j++;
+        int cnt = n;
 
-            if (str1[i] != str2[j] || str1[i] == 'a' && i > j || str1[i] == 'c' && i < j)
-            {
-                flag = false;
-                break;
-            }
-            j++;
-        }
-        if (flag)
+        int pos1 = s.find("01");
+        while (pos1 != string::npos)
         {
-            pe("YES");
+            s.replace(pos1, s.length(), "1");
         }
-        else
+        int pos2 = s.find("10");
+        while (pos1 != string::npos)
         {
-            pe("NO");
+            s.replace(pos1, s.length(), "1");
         }
     }
     return 0;

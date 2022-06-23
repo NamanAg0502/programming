@@ -33,41 +33,38 @@ using namespace std;
 #define ce cout << endl;
 #define setbits(x) __builtin_popcount(x)
 
+int good[16] = {0, 70, 140, 210, 280, 350, 601, 671, 741, 811, 881, 951, 1202, 1272, 1342, 1412};
+
 int main()
 {
     w(t)
     {
-        int n;
-        cin >> n;
-        string str1, str2;
-        cin >> str1 >> str2;
+        string s;
+        int k;
+        cin >> s >> k;
 
-        bool flag = true;
-        if (count(str1.begin(), str1.end(), 'b') != count(str2.begin(), str2.end(), 'b'))
-            flag = false;
-        int j = 0;
-        for (int i = 0; i < n; i++)
+        string s1 = s.substr(0, 2);
+        string s2 = s.substr(3);
+        int x = stoi(s1) * 60 + stoi(s2);
+        int ans = 0;
+
+        unordered_set<int> set;
+        for (int i = 0; i < 1440; i++)
         {
-            if (str1[i] == 'b')
-                continue;
-            while (str2[j] == 'b')
-                j++;
+            set.insert(x);
+            x += k;
+            x %= 1440;
+        }
 
-            if (str1[i] != str2[j] || str1[i] == 'a' && i > j || str1[i] == 'c' && i < j)
+        for (auto &it : set)
+        {
+            for (int j = 0; j < 16; j++)
             {
-                flag = false;
-                break;
+                if (good[j] == it)
+                    ans++;
             }
-            j++;
         }
-        if (flag)
-        {
-            pe("YES");
-        }
-        else
-        {
-            pe("NO");
-        }
+        pe(ans);
     }
     return 0;
 }

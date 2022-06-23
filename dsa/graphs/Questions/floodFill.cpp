@@ -33,41 +33,36 @@ using namespace std;
 #define ce cout << endl;
 #define setbits(x) __builtin_popcount(x)
 
+void dfs(int i, int j, vector<vector<int>> &image, int initialColor, int newColor)
+{
+    int n = image.size();
+    int m = image[0].size();
+
+    if (i < 0 || j < 0)
+        return;
+    if (i >= n || j >= m)
+        return;
+    if (image[i][j] != initialColor)
+        return;
+
+    image[i][j] = newColor;
+
+    dfs(i - 1, j, image, initialColor, newColor);
+    dfs(i + 1, j, image, initialColor, newColor);
+    dfs(i, j - 1, image, initialColor, newColor);
+    dfs(i, j + 1, image, initialColor, newColor);
+}
+
+vector<vector<int>> floodFill(vector<vector<int>> &image, int sr, int sc, int newColor)
+{
+    int initialColor = image[sr][sc];
+    if (initialColor != newColor)
+        dfs(sr, sc, image, initialColor, newColor);
+    return image;
+}
+
 int main()
 {
-    w(t)
-    {
-        int n;
-        cin >> n;
-        string str1, str2;
-        cin >> str1 >> str2;
 
-        bool flag = true;
-        if (count(str1.begin(), str1.end(), 'b') != count(str2.begin(), str2.end(), 'b'))
-            flag = false;
-        int j = 0;
-        for (int i = 0; i < n; i++)
-        {
-            if (str1[i] == 'b')
-                continue;
-            while (str2[j] == 'b')
-                j++;
-
-            if (str1[i] != str2[j] || str1[i] == 'a' && i > j || str1[i] == 'c' && i < j)
-            {
-                flag = false;
-                break;
-            }
-            j++;
-        }
-        if (flag)
-        {
-            pe("YES");
-        }
-        else
-        {
-            pe("NO");
-        }
-    }
     return 0;
 }

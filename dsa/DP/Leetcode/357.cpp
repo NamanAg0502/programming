@@ -6,7 +6,7 @@ int solve(int n)
     if (n == 0)
         return 0;
     int ans = 0;
-    ans += solve(n - 1);
+    ans += solve(n - 1) * 10 + pow(10, n - 1) * ();
     return ans;
 }
 

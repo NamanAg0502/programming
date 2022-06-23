@@ -32,42 +32,47 @@ using namespace std;
         cin >> a[i];
 #define ce cout << endl;
 #define setbits(x) __builtin_popcount(x)
+const int N = 1e3 + 2;
+
+int wt[N], val[N];
+
+int dp[N][N];
+
+int Knapsack(int n, int w)
+{
+    if (w <= 0)
+        return 0;
+    if (n <= 0)
+        return 0;
+
+    if (dp[n][w] != -1)
+        return dp[n][w];
+
+    if (wt[n - 1] > w)
+        dp[n][w] = Knapsack(n - 1, w);
+    else
+        dp[n][w] = max(Knapsack(n - 1, w), Knapsack(n - 1, w - wt[n - 1]) + val[n - 1]);
+
+    return dp[n][w];
+}
 
 int main()
 {
-    w(t)
-    {
-        int n;
-        cin >> n;
-        string str1, str2;
-        cin >> str1 >> str2;
+    int n;
+    cin >> n;
 
-        bool flag = true;
-        if (count(str1.begin(), str1.end(), 'b') != count(str2.begin(), str2.end(), 'b'))
-            flag = false;
-        int j = 0;
-        for (int i = 0; i < n; i++)
-        {
-            if (str1[i] == 'b')
-                continue;
-            while (str2[j] == 'b')
-                j++;
+    for (int i = 0; i < n; i++)
+        cin >> wt[i];
 
-            if (str1[i] != str2[j] || str1[i] == 'a' && i > j || str1[i] == 'c' && i < j)
-            {
-                flag = false;
-                break;
-            }
-            j++;
-        }
-        if (flag)
-        {
-            pe("YES");
-        }
-        else
-        {
-            pe("NO");
-        }
-    }
+    for (int i = 0; i < n; i++)
+        cin >> val[i];
+
+    int w;
+    cin >> w;
+
+    memset(dp, -1, sizeof(dp));
+
+    cout << Knapsack(n, w) << endl;
+
     return 0;
 }

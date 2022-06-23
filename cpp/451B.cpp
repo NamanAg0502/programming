@@ -1,8 +1,6 @@
 #include "/Users/na/stdc++.h"
 using namespace std;
 
-#define PI 3.1415926535897932384626
-#define MOD 1000000007 // 998244353
 #define vi vector<int>
 #define ll long long
 #define ull unsigned long long
@@ -12,9 +10,6 @@ using namespace std;
 #define pb push_back
 #define pii pair<int, int>
 #define vpii vector<pair<int, int>>
-#define f(a, n)                 \
-    for (int i = 0; i < n; i++) \
-    cout << a[i] << ' '
 #define pf(a)             \
     for (auto &(i) : (a)) \
         cout << i << ' ';
@@ -24,56 +19,74 @@ using namespace std;
     int x;    \
     cin >> x; \
     while (x--)
-#define arr(a, n)               \
-    int n;                      \
-    cin >> n;                   \
-    int a[n];                   \
-    for (int i = 0; i < n; i++) \
-        cin >> a[i];
 #define ce cout << endl;
+#define py cout << "YES" << endl
+#define pn cout << "NO" << endl
 #define setbits(x) __builtin_popcount(x)
 
 int main()
 {
     int n;
     cin >> n;
-    vi a(n + 2);
-    a[0] = INT_MIN;
-    a[n + 1] = INT_MAX;
-    for (int i = 1; i <= n; i++)
-        cin >> a[i];
-
-    int l = 0, r = n + 1, cnt = 0;
-    for (int i = 1; i <= n; i++)
+    int a[n], b[n];
+    for (int i = 0; i < n; i++)
     {
-        if (a[i + 1] < a[i] && a[i] > a[i - 1])
+        cin >> a[i];
+        b[i] = a[i];
+    }
+    map<int, int> mp;
+    sort(b, b + n);
+    for (int i = 0; i < n; i++)
+    {
+        mp[b[i]] = i;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        a[i] = mp[a[i]];
+    }
+    int L = -1;
+    for (int i = 0; i < n; i++)
+    {
+        if (a[i] != i)
         {
-            l = i;
-            cnt++;
-        }
-        else if (a[i + 1] > a[i] && a[i] < a[i - 1])
-        {
-            r = i;
-            cnt++;
+            L = i;
+            break;
         }
     }
-    if (cnt == 2 && r > l)
+    int R = -1;
+    for (int i = n - 1; i >= 0; i--)
     {
-        reverse(a.begin() + l, a.begin() + r + 1);
-        if (is_sorted(a.begin() + 1, a.begin() + n + 1))
+        if (a[i] != i)
         {
-            pe("yes");
-            p(l);
-            pe(r);
+            R = i;
+            break;
         }
-        else
-        {
-            pe("no");
-        }
+    }
+    if (L == -1 || R == -1)
+    {
+        cout << "yes" << endl;
+        cout << 1 << " " << 1 << endl;
     }
     else
     {
-        pe("no");
+        reverse(a + L, a + R + 1);
+        int ok = true;
+        for (int i = 0; i < n; i++)
+        {
+            if (a[i] != i)
+            {
+                ok = false;
+            }
+        }
+        if (ok)
+        {
+            cout << "yes" << endl;
+            cout << L + 1 << " " << R + 1 << endl;
+        }
+        else
+        {
+            cout << "no" << endl;
+        }
     }
     return 0;
 }

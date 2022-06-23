@@ -39,34 +39,34 @@ int main()
     {
         int n;
         cin >> n;
-        string str1, str2;
-        cin >> str1 >> str2;
+        int a[n];
+        int b[n];
+        for (int i = 1; i <= n; i++)
+            cin >> a[i];
+        for (int i = 1; i <= n; i++)
+            b[i] = i;
 
-        bool flag = true;
-        if (count(str1.begin(), str1.end(), 'b') != count(str2.begin(), str2.end(), 'b'))
-            flag = false;
-        int j = 0;
-        for (int i = 0; i < n; i++)
+        if (n == 1)
         {
-            if (str1[i] == 'b')
-                continue;
-            while (str2[j] == 'b')
-                j++;
-
-            if (str1[i] != str2[j] || str1[i] == 'a' && i > j || str1[i] == 'c' && i < j)
-            {
-                flag = false;
-                break;
-            }
-            j++;
-        }
-        if (flag)
-        {
-            pe("YES");
+            pe(-1);
         }
         else
         {
-            pe("NO");
+            for (int i = 1; i < n; i++)
+            {
+                if (a[i] == b[i])
+                {
+                    swap(b[i], b[i + 1]);
+                }
+            }
+            if (a[n] == b[n])
+                swap(b[n], b[n - 1]);
+
+            for (int i = 1; i <= n; i++)
+            {
+                p(b[i]);
+            }
+            ce;
         }
     }
     return 0;

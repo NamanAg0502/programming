@@ -37,37 +37,31 @@ int main()
 {
     w(t)
     {
-        int n;
-        cin >> n;
-        string str1, str2;
-        cin >> str1 >> str2;
+        int n, m;
+        cin >> n >> m;
+        string s;
 
-        bool flag = true;
-        if (count(str1.begin(), str1.end(), 'b') != count(str2.begin(), str2.end(), 'b'))
-            flag = false;
-        int j = 0;
-        for (int i = 0; i < n; i++)
+        while (n > 0 && m > 0)
         {
-            if (str1[i] == 'b')
-                continue;
-            while (str2[j] == 'b')
-                j++;
+            s += "1";
+            s += "0";
+            n--;
+            m--;
+        }
 
-            if (str1[i] != str2[j] || str1[i] == 'a' && i > j || str1[i] == 'c' && i < j)
-            {
-                flag = false;
-                break;
-            }
-            j++;
-        }
-        if (flag)
+        while (n > 0)
         {
-            pe("YES");
+            s += "0";
+            n--;
         }
-        else
+
+        while (m > 0)
         {
-            pe("NO");
+            s += "1";
+            m--;
         }
+
+        pe(s);
     }
     return 0;
 }

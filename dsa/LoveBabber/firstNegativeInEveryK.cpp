@@ -3,7 +3,6 @@ using namespace std;
 
 long long int maximizeSum(long long int a[], int n, int k)
 {
-    // Your code goes here
     long long sum = accumulate(a, a + n, 0);
 
     sort(a, a + n);
